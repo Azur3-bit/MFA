@@ -1,2 +1,6 @@
-pip install qrcode --- qr creation 
-pip install pyzbar pillow ---- qr decoding
+--- qr creation 
+pip install qrcode 
+
+
+---- qr decoding
+pip install pyzbar pillow 
