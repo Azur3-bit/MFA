@@ -1,77 +1,50 @@
-from pyfingerprint.pyfingerprint import PyFingerprint
+import win32com.client
 
 def enroll_fingerprint():
-    # Initialize fingerprint sensor
     try:
-        f = PyFingerprint('/dev/ttyUSB0', 57600, 0xFFFFFFFF, 0x00000000)
-        if not f.verifyPassword():
-            raise ValueError('The given fingerprint sensor password is wrong!')
+        # Create Biometric Enrollment object
+        biometric_enrollment = win32com.client.Dispatch("BiometricEnrollment.Enrollment")
 
+        # Start enrollment
+        result = biometric_enrollment.StartEnrollment()
+        if result != 0:
+            print("Failed to start enrollment.")
+            return False
+        
+        # Wait for enrollment to complete
+        print("Please place your finger on the sensor for enrollment...")
+        while biometric_enrollment.Status != 2:  # EnrollmentStatus_Completed
+            pass
+        
+        print("Enrollment completed successfully.")
+        return True
+    
     except Exception as e:
-        print('Exception message: ' + str(e))
+        print("Error during enrollment:", e)
         return False
-
-    # Wait for a finger to be read
-    print('Waiting for finger...')
-
-    while not f.readImage():
-        pass
-
-    # Convert read image to characteristics and store it
-    f.convertImage(0x01)
-    print('Remove finger...')
-    time.sleep(2)
-
-    print('Place the same finger again...')
-
-    while not f.readImage():
-        pass
-
-    # Convert read image to characteristics and store it
-    f.convertImage(0x02)
-
-    # Create a template
-    f.createTemplate()
-
-    # Save template to file
-    template = f.downloadCharacteristics()
-
-    with open('fingerprint_template.bin', 'wb') as file:
-        file.write(template)
-
-    print('Fingerprint enrolled successfully.')
-    return True
 
 def verify_fingerprint():
-    # Initialize fingerprint sensor
     try:
-        f = PyFingerprint('/dev/ttyUSB0', 57600, 0xFFFFFFFF, 0x00000000)
-        if not f.verifyPassword():
-            raise ValueError('The given fingerprint sensor password is wrong!')
+        # Create Biometric Service object
+        biometric_service = win32com.client.Dispatch("BiometricAuthentication.BiometricService")
 
-    except Exception as e:
-        print('Exception message: ' + str(e))
-        return False
-
-    # Wait for a finger to be read
-    print('Waiting for finger...')
-
-    while not f.readImage():
-        pass
-
-    # Convert read image to characteristics and store it
-    f.convertImage(0x01)
-
-    # Search for a match
-    result = f.searchTemplate()
-    positionNumber = result[0]
-
-    if positionNumber == -1:
-        print('No match found.')
-        return False
-    else:
-        print('Fingerprint matched with position number: ', positionNumber)
+        # Start authentication
+        result = biometric_service.StartAuthentication()
+        if result != 0:
+            print("Failed to start authentication.")
+            return False
+        
+        # Wait for authentication to complete
+        print("Please place your finger on the sensor for verification...")
+        while biometric_service.Status != 2:  # AuthenticationStatus_Completed
+            pass
+        
+        print("Verification completed successfully.")
         return True
+    
+    except Exception as e:
+        print("Error during verification:", e)
+        return False
 
 # Example usage:
 # Enroll fingerprint
@@ -79,3 +52,4 @@ enroll_fingerprint()
 
 # Verify fingerprint
 verify_fingerprint()
+
