@@ -60,8 +60,9 @@ def open_payment_gateway_global(root, username):
     heading_label = tk.Label(
         payment_window,
         text="Transaction Processing ...",
-        font=("Arial", 16, "bold"),
+        font=("Montserrat", 16, "bold"),
         fg="orange",
+        # bg = "black"
     )
     heading_label.pack(pady=(20, 10))
 

@@ -2,3 +2,19 @@ testing new Design Elements
 
 
 todo 
+
+
+{
+
+` final window ` 
+                trasfering request to bank servers ...
+                request accepted ...
+                payment processing ...
+                payment successful !  (check mark)
+}
+
+
+{
+` all windows `
+                make buttons a little round    
+}
