@@ -31,10 +31,10 @@ def compare_file_with_key(filename, saved_key):
         print("An error occurred:", e)
         return False
 
-# Example usage:
-saved_key = "This is the saved key content"  # Pre-saved key content
-filename = "/media/username/removable_drive/example.txt"  # Path to the text file on removable storage
+# # Example usage:
+# saved_key = "12345"  # Pre-saved key content
+# filename = "G:\\example.txt"  # Path to the text file on removable storage
 
-# Check if the content of the file matches the saved key
-result = compare_file_with_key(filename, saved_key)
-print("Content matches saved key:", result)
+# # Check if the content of the file matches the saved key
+# result = compare_file_with_key(filename, saved_key)
+# print("Content matches saved key:", result)
