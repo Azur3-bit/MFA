@@ -12,7 +12,7 @@ def authenticate_with_password(root):  # Add root as an argument
         print("Username:", username)  # Log the username
         print("Password entered:", password)
         # Open payment gateway layout
-        open_payment_gateway_global(root)  # Pass root as an argument
+        open_payment_gateway_global(root, username)  # Pass root as an argument
     else:
         messagebox.showinfo("Incorrect Password", "The password you entered is incorrect.")
 
