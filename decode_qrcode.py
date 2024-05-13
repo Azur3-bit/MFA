@@ -13,6 +13,5 @@ def decode_qr_code(image_path):
     else:
         print("No QR code found")
 
-# Provide the path to the image containing the QR code
 image_path = "example.png"
 decode_qr_code(image_path)
