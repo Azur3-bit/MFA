@@ -1,39 +1,35 @@
 import tkinter as tk
-
-from findKey import is_removable_disk
-from findKey import compare_file_with_key
-
-
 from tkinter import simpledialog, messagebox
 
-# changes
+from findKey import compare_file_with_key
+
+# Constants
 filename = "G:\\example.txt"  # Path to the text file on removable storage
 saved_key = "12345"
 CORRECT_UPI_PIN = "741"
 
+# Define payment_window as a global variable
+payment_window = None
 
-def upi_pin(root, username):  # Add username as an argument
-    print("UPI Pin selected")
+
+def upi_pin(root, username, payment_successful):
     password = simpledialog.askstring("Password Authentication", "Enter your password:")
     if password == CORRECT_UPI_PIN:
-        print("Username:", username)  # Log the username
-        # print("Password entered:", password)
-        print("upi pin entered : ", password)
-        # Open payment gateway layout
-        open_payment_gateway_global(root, username)  # Pass root as an argument
+        print("Username:", username)
+        print("UPI pin entered:", password)
+        payment_successful()  # Call payment_successful function
     else:
         messagebox.showinfo(
             "Incorrect Password", "The password you entered is incorrect."
         )
 
 
-def open_payment_gateway_global(root, username):  # Add root as an argument
-    root.withdraw()  # Hide the main window
+def open_payment_gateway_global(root, username):
+    global payment_window  # Declare payment_window as global
+    root.withdraw()
     payment_window = tk.Toplevel(root)
     payment_window.title("Payment Gateway")
-    payment_window.geometry(
-        "400x300"
-    )  # Adjusted height to accommodate additional buttons
+    payment_window.geometry("400x300")
 
     # Transaction Processing heading
     heading_label = tk.Label(
@@ -42,7 +38,7 @@ def open_payment_gateway_global(root, username):  # Add root as an argument
         font=("Arial", 16, "bold"),
         fg="orange",
     )
-    heading_label.pack(pady=(20, 10))  # Adjusted padding for top and bottom
+    heading_label.pack(pady=(20, 10))
 
     # Payment gateway layout
     amount_label = tk.Label(
@@ -57,24 +53,24 @@ def open_payment_gateway_global(root, username):  # Add root as an argument
     )
     bank_info_label.pack()
 
-    # # Add payment options/buttons
-    # payment_button1 = tk.Button(payment_window, text="Option 1", font=("Arial", 12), command=lambda: print("Payment option 1 selected"))
-    # payment_button1.pack(pady=5)
-
-    # payment_button2 = tk.Button(payment_window, text="Option 2", font=("Arial", 12), command=lambda: print("Payment option 2 selected"))
-    # payment_button2.pack(pady=5)
-
     def aux_physicalKey():
         print(" +++ Physical key selected")
         result = compare_file_with_key(filename, saved_key)
         print("physical key matched ? : " + str(result))
+
+    def payment_successful():
+        # Destroy all widgets in the payment window except the payment status label
+        for widget in payment_window.winfo_children():
+            if widget != payment_status_label:
+                widget.destroy()
+        payment_status_label.config(text="Payment Successful", fg="green")
 
     # Additional buttons
     upi_pin_button = tk.Button(
         payment_window,
         text="UPI Pin",
         font=("Arial", 12),
-        command=lambda: upi_pin(root, username),
+        command=lambda: upi_pin(root, username, payment_successful),
     )
     upi_pin_button.pack(pady=5)
 
@@ -101,6 +97,10 @@ def open_payment_gateway_global(root, username):  # Add root as an argument
         command=lambda: print("Biometric - fingerprint selected"),
     )
     biometric_button.pack(pady=5)
+
+    # Payment status label
+    payment_status_label = tk.Label(payment_window, text="", font=("Arial", 14))
+    payment_status_label.pack(pady=10)
 
     # Handle window close event
     payment_window.protocol("WM_DELETE_WINDOW", root.quit)
