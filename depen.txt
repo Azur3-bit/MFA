@@ -8,4 +8,4 @@ pip install pyzbar pillow
 
 
 ----- ui 
-pip install tkinter
+pip install tk
