@@ -5,6 +5,7 @@ from UipaymentGateways import open_payment_gateway_global
 # Constant password
 CORRECT_PASSWORD = "123"
 
+
 def authenticate_with_password(root):  # Add root as an argument
     username = username_entry.get()  # Retrieve username from the entry widget
     password = simpledialog.askstring("Password Authentication", "Enter your password:")
@@ -14,7 +15,10 @@ def authenticate_with_password(root):  # Add root as an argument
         # Open payment gateway layout
         open_payment_gateway_global(root, username)  # Pass root as an argument
     else:
-        messagebox.showinfo("Incorrect Password", "The password you entered is incorrect.")
+        messagebox.showinfo(
+            "Incorrect Password", "The password you entered is incorrect."
+        )
+
 
 root = tk.Tk()  # Define root here
 root.title("User Authentication")
@@ -34,7 +38,9 @@ heading_label.pack(pady=10)
 username_frame = tk.Frame(root)
 username_frame.pack()
 
-username_label = tk.Label(username_frame, text="Enter your username:", font=("Arial", 12))
+username_label = tk.Label(
+    username_frame, text="Enter your username:", font=("Arial", 12)
+)
 username_label.pack(side=tk.LEFT)
 
 username_entry = tk.Entry(username_frame)
@@ -44,10 +50,24 @@ username_entry.pack(side=tk.LEFT, padx=5)
 auth_frame = tk.Frame(root)
 auth_frame.pack()
 
-password_button = tk.Button(auth_frame, text="Password", font=("Arial", 12, "bold"), bg="#28a745", fg="white", command=lambda: authenticate_with_password(root))
+password_button = tk.Button(
+    auth_frame,
+    text="Password",
+    font=("Arial", 12, "bold"),
+    bg="#28a745",
+    fg="white",
+    command=lambda: authenticate_with_password(root),
+)
 password_button.grid(row=0, column=0, padx=5, pady=5)
 
-biometric_button = tk.Button(auth_frame, text="Biometric", font=("Arial", 12, "bold"), bg="#007bff", fg="white", command=lambda: authenticate_with_biometric(root))
+biometric_button = tk.Button(
+    auth_frame,
+    text="Biometric",
+    font=("Arial", 12, "bold"),
+    bg="#007bff",
+    fg="white",
+    command=lambda: authenticate_with_biometric(root),
+)
 biometric_button.grid(row=0, column=1, padx=5, pady=5)
 
 root.mainloop()
