@@ -1,10 +1,3 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-# @Time     :   6/24/2019 9:03 PM
-# @Author   :   Luspock
-# @File     :   fingerprint.py
-
-
 import ctypes
 from ctypes import wintypes
 
