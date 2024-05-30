@@ -24,7 +24,7 @@ payment_status_label = None
 
 
 def fingerPrint_connection():
-    print("**** Finger print option selected \n")
+    print("**** [option selected] Finger print option selected \n")
     root = tk.Tk()
     root.withdraw()  # Hide the main window
 
@@ -40,8 +40,9 @@ def fingerPrint_connection():
     myfingerPrint = FingerPrint()
     
     try:
-        print("entered try block\n")
+        print(" [Block notification] Entered try block\n")
         root.mainloop()
+        print("[Finger print device] Finger print device connected \n")
         myfingerPrint.open()
         print("Hey there! Now place your finger on the scanner, please :)\n")
         
