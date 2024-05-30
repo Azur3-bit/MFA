@@ -57,17 +57,15 @@ def show_fingerprint_popup():
         myfingerPrint.close()
     
 
-    return root, scan_popup
+
 
 
 
 def fingerPrint_connection():
     print("**** Finger print option selected \n")
     show_fingerprint_popup()
-    # Show the fingerprint scanning pop-up window
        
     
-
 
 
 def payment_successful():
