@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox
 from UipaymentGateways import open_payment_gateway_global
+from fingerprint import FingerPrint
 
 # Constant password
 CORRECT_PASSWORD = "123"
@@ -63,8 +64,9 @@ def authenticate_with_password(root):  # Add root as an argument
 #         myfingerPrint.close()
 
 
-
 def fingerPrint_connection(root):
+
+    
     print("**** [option selected] Finger print option selected \n")
     root = tk.Tk()
     # root.withdraw()  # Hide the main window
