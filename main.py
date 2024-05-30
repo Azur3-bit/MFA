@@ -398,7 +398,7 @@ def show_fingerprint_popup_userLogin(root):
             if myfingerPrint.verify():
                 print("Authenticated user\n")
                 scan_popup.destroy()  # Close the pop-up window
-                open_payment_gateway_global(root, username)
+                beneficiary_detail_ui(root)
             else:
                 print("There is always a second chance for everything\n")
                 messagebox.showinfo(
