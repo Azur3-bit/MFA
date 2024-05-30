@@ -297,13 +297,54 @@ def show_fingerprint_popup(root):
     scan_popup.after(100, check_fingerprint)
 
 
-
-
 def fingerPrint_connection(root):
     print("**** Finger print option selected \n")
     show_fingerprint_popup(root)
        
     
+
+
+def fingerPrint_connection_userLogin(root):
+    print("**** Finger print option selected \n")
+    show_fingerprint_popup_userLogin(root)
+       
+def show_fingerprint_popup_userLogin(root):
+    scan_popup = tk.Toplevel(root)
+    scan_popup.title("Fingerprint Scanner")
+    scan_popup.geometry("300x150")
+    username = username_entry.get()
+    
+    # Add a label to the pop-up window
+    label = tk.Label(scan_popup, text="Please place your finger on the scanner.")
+    label.pack(pady=20)
+
+    myfingerPrint = FingerPrint()
+    
+    def check_fingerprint():
+        try:
+            myfingerPrint.open()
+            print("Hey there! Now place your finger on the scanner, please :)\n")
+            
+            if myfingerPrint.verify():
+                print("Authenticated user\n")
+                scan_popup.destroy()  # Close the pop-up window
+                open_payment_gateway_global(root, username)
+            else:
+                print("There is always a second chance for everything\n")
+                messagebox.showinfo(
+                    "Incorrect Fingerprint", "The fingerprint is incorrect."
+                )
+                scan_popup.destroy()  # Close the pop-up window
+        finally:
+            print("Closing connection with the fingerprint scanner\n")
+            myfingerPrint.close()
+    
+    # Trigger fingerprint check after the pop-up window is created
+    scan_popup.after(100, check_fingerprint)
+
+
+
+
 
 
 def payment_successful():
@@ -454,27 +495,27 @@ def authenticate_with_password(root):  # Add root as an argument
         )
 
 
-def fingerPrint_connection_mainScreen(root):
-    print(" **** finger print option selected \n")
+# def fingerPrint_connection_mainScreen(root):
+#     print(" **** finger print option selected \n")
 
-    # from fingerprint import FingerPrint 
-    username = username_entry.get()
-    myfingerPrint = FingerPrint()
+#     # from fingerprint import FingerPrint 
+#     username = username_entry.get()
+#     myfingerPrint = FingerPrint()
     
-    try:
-        myfingerPrint.open()
-        print("hey there ! now place your finger on scanner please :)\n")
-        if myfingerPrint.verify():
-            print("hey authenicated user \n");
-            open_payment_gateway_global(root,username)
-        else:
-            print("there always a second chance for everything \n")
-            messagebox.showinfo(
-                "Incorrect FingerPrint", "The FingerPrint is incorrect."
-            )
-    finally:
-        print("closing connectin with FingerPrint scanner\n")
-        myfingerPrint.close() 
+#     try:
+#         myfingerPrint.open()
+#         print("hey there ! now place your finger on scanner please :)\n")
+#         if myfingerPrint.verify():
+#             print("hey authenicated user \n")
+#             open_payment_gateway_global(root,username)
+#         else:
+#             print("there always a second chance for everything \n")
+#             messagebox.showinfo(
+#                 "Incorrect FingerPrint", "The FingerPrint is incorrect."
+#             )
+#     finally:
+#         print("closing connectin with FingerPrint scanner\n")
+#         myfingerPrint.close() 
 
 
 
@@ -527,7 +568,7 @@ biometric_button = tk.Button(
     font=("Arial", 12, "bold"),
     bg="#007bff",
     fg="white",
-    command=lambda: fingerPrint_connection_mainScreen(root),
+    command=lambda: fingerPrint_connection_userLogin(root),
 )
 biometric_button.grid(row=0, column=1, padx=5, pady=5)
 
