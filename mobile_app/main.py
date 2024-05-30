@@ -450,7 +450,7 @@ def authenticate_with_password(root):  # Add root as an argument
 def fingerPrint_connection(root):
     print(" **** finger print option selected \n")
 
-    from fingerprint import FingerPrint 
+    # from fingerprint import FingerPrint 
     
     
     username = username_entry.get()
