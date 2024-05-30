@@ -299,6 +299,8 @@ def show_fingerprint_popup(root):
         myfingerPrint.close()
     
 
+    return 
+
 
 
 
