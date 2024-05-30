@@ -26,6 +26,7 @@ def fingerPrint_connection(root):
     from fingerprint import FingerPrint 
     
     
+    username = username_entry.get()
     myfingerPrint = FingerPrint()
     
     try:
@@ -33,7 +34,7 @@ def fingerPrint_connection(root):
         print("hey there ! now place your finger on scanner please :)\n")
         if myfingerPrint.verify():
             print("hey authenicated user \n");
-            open_payment_gateway_global(root, username)
+            open_payment_gateway_global(root,username)
         else:
             print("there always a second chance for everything \n")
     finally:
