@@ -264,12 +264,7 @@ class FingerPrint:
 
 # Function to create and show the pop-up window
 def show_fingerprint_popup(root):
-    # Create the main window
-    root = tk.Tk()
-    root.withdraw()  # Hide the main window
-
-    # Create the pop-up window for fingerprint scanning
-    scan_popup = tk.Toplevel()
+    scan_popup = tk.Toplevel(root)
     scan_popup.title("Fingerprint Scanner")
     scan_popup.geometry("300x150")
 
@@ -279,28 +274,27 @@ def show_fingerprint_popup(root):
 
     myfingerPrint = FingerPrint()
     
-    try:
-        root.mainloop()
-        myfingerPrint.open()
-        print("Hey there! Now place your finger on the scanner, please :)\n")
-        
-        if myfingerPrint.verify():
-            print("Authenticated user\n")
-            scan_popup.destroy()  # Close the pop-up window
-            payment_successful()
-        else:
-            print("There is always a second chance for everything\n")
-            messagebox.showinfo(
-                "Incorrect Fingerprint", "The fingerprint is incorrect."
-            )
-            scan_popup.destroy()  # Close the pop-up window
-    finally:
-        print("Closing connection with the fingerprint scanner\n")
-        myfingerPrint.close()
+    def check_fingerprint():
+        try:
+            myfingerPrint.open()
+            print("Hey there! Now place your finger on the scanner, please :)\n")
+            
+            if myfingerPrint.verify():
+                print("Authenticated user\n")
+                scan_popup.destroy()  # Close the pop-up window
+                payment_successful()
+            else:
+                print("There is always a second chance for everything\n")
+                messagebox.showinfo(
+                    "Incorrect Fingerprint", "The fingerprint is incorrect."
+                )
+                scan_popup.destroy()  # Close the pop-up window
+        finally:
+            print("Closing connection with the fingerprint scanner\n")
+            myfingerPrint.close()
     
-
-    return 
-
+    # Trigger fingerprint check after the pop-up window is created
+    scan_popup.after(100, check_fingerprint)
 
 
 
