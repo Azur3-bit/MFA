@@ -37,7 +37,7 @@ def show_fingerprint_popup():
 
     return root, scan_popup
 
-    
+
 
 def fingerPrint_connection():
     print("**** Finger print option selected \n")
@@ -48,6 +48,7 @@ def fingerPrint_connection():
     myfingerPrint = FingerPrint()
     
     try:
+        root.mainloop() ## to be checked
         myfingerPrint.open()
         print("Hey there! Now place your finger on the scanner, please :)\n")
         
@@ -65,8 +66,7 @@ def fingerPrint_connection():
         print("Closing connection with the fingerprint scanner\n")
         myfingerPrint.close()
     
-    root.mainloop()
-
+    
 
 
 
