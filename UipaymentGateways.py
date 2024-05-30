@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import simpledialog, messagebox
 
   # Import shatrunjai dependency
+from fingerprint import FingerPrint
 
 
 
@@ -21,8 +22,7 @@ payment_status_label = None
 
 def fingerPrint_connection():
     # Create the main window
-    from fingerprint import FingerPrint
-    
+
     root = tk.Tk()
     root.withdraw()  # Hide the main window
 
