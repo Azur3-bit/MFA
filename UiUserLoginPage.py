@@ -64,7 +64,7 @@ def authenticate_with_password(root):  # Add root as an argument
 
 
 
-def fingerPrint_connection(root):
+def fingerPrint_connection(root, username):
     from fingerprint import FingerPrint
     print("**** [option selected] Finger print option selected \n")
     # root.withdraw()  # Hide the main window 
@@ -82,7 +82,7 @@ def fingerPrint_connection(root):
                 print("[User-Notice] Authenticated user\n")
                 scan_popup.destroy()  # Close the pop-up window
                 messagebox.showinfo("Fingerprint Matched", "Fingerprint matched, User Authenticated.")
-                open_payment_gateway_global(root, username)
+                open_payment_gateway_global(root)
             else:
                 print("[User-Notice] Incorrect Fingerprint", "The fingerprint is incorrect.\n")
                 messagebox.showinfo("Incorrect Fingerprint", "The fingerprint is incorrect. Please try again.")
