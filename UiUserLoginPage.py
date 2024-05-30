@@ -101,7 +101,7 @@ def fingerPrint_connection(root):
     label.pack(pady=20)
 
 
-    scan_fingerprint()
+    # scan_fingerprint()
     # Button to start scanning the fingerprint
     scan_button = tk.Button(scan_popup, text="Scan Fingerprint", command=scan_fingerprint)
     scan_button.pack(pady=10)
