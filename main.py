@@ -9,7 +9,7 @@ from tkinter import simpledialog, messagebox
 
 
 # Constants
-filename = "H:\\example.txt"  # Path to the text file on removable storage
+filename = "F:\\example.txt"  # Path to the text file on removable storage
 saved_key = "12345"
 CORRECT_UPI_PIN = "741"
 correct_unique_key = "WxaWJFJWXf2bZN5l"
@@ -430,7 +430,41 @@ def open_payment_gateway_global(root, username):
     const_physical_key_PIN = CORRECT_UPI_PIN
 
     def physicalKey_helper():
-        from findKey import compare_file_with_key
+        import psutil
+
+        def is_removable_disk(path):
+            """Check if the path is on a removable disk."""
+            partitions = psutil.disk_partitions()
+            for partition in partitions:
+                if path.startswith(partition.mountpoint):
+                    if 'removable' in partition.opts or 'cdrom' in partition.opts:
+                        return True
+            return False
+
+        def compare_file_with_key(filename, saved_key):
+            try:
+                if not is_removable_disk(filename):
+                    print("File is not on a removable storage device.")
+                    return False
+                
+                # Open the file and read its content
+                with open(filename, 'r') as file:
+                    file_content = file.read()
+                
+                # Compare the file content with the saved key
+                if file_content.strip() == saved_key.strip():
+                    print("[compare_file_with_key] file contents : ", file_content)
+                    return True
+                else:
+                    return False
+            except FileNotFoundError:
+                print("File not found!")
+                return False
+            except Exception as e:
+                print("An error occurred:", e)
+                return False
+
+
         # from findKey import compare_file_with_key
         print("[Dev-signal] **** Physical key selected")
 
