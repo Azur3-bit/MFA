@@ -50,7 +50,7 @@ def fingerPrint_connection():
             print("Authenticated user\n")
             scan_popup.destroy()  # Close the pop-up window
             messagebox.showinfo(
-                "Fingerprint Matched. User Authenticated ",
+                "Fingerprint Matched", "FingerPrint matched, User Authenticated."
             )
             payment_successful()
         else:
