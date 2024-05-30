@@ -9,7 +9,7 @@ from tkinter import simpledialog, messagebox
 
 
 # Constants
-filename = "F:\\example.txt"  # Path to the text file on removable storage
+filename = "H:\\example.txt"  # Path to the text file on removable storage
 saved_key = "12345"
 CORRECT_UPI_PIN = "741"
 correct_unique_key = "WxaWJFJWXf2bZN5l"
