@@ -64,7 +64,7 @@ def authenticate_with_password(root):  # Add root as an argument
 
 
 
-def fingerPrint_connection(root, username):
+def fingerPrint_connection(root):
     from fingerprint import FingerPrint
     print("**** [option selected] Finger print option selected \n")
     # root.withdraw()  # Hide the main window 
