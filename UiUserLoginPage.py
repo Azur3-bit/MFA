@@ -69,7 +69,7 @@ def fingerPrint_connection(root):
     
     print("**** [option selected] Finger print option selected \n")
     root = tk.Tk()
-    # root.withdraw()  # Hide the main window
+    root.withdraw()  # Hide the main window
 
     # Create the pop-up window for fingerprint scanning
     scan_popup = tk.Toplevel()
