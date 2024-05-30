@@ -103,19 +103,33 @@ def qr_code_helper(root, username):
             "Incorrect QR Code", "The QR code you entered is incorrect."
         )
 
+const_physical_key_PIN = CORRECT_UPI_PIN
 
 def physicalKey_helper():
     from findKey import compare_file_with_key
     print(" **** Physical key selected")
-    result = compare_file_with_key(filename, saved_key)
-    print("physical key matched ? : " + str(result))
-    if result:
-        payment_successful()
+
+    password = simpledialog.askstring("Password Authentication", "Enter your password:")
+    if password == CORRECT_UPI_PIN:
+        print("Physical pin entered:", password)
+        result = compare_file_with_key(filename, saved_key)
+        print("physical key matched ? : " + str(result))
+        if result:
+            print("payment Successful called\n")
+            payment_successful()
+        else:
+            print("Physical key not matched")
+            messagebox.showinfo(
+                "Incorrect Physical Key", "The physical key you entered is incorrect."
+            )
+
     else:
-        print("Physical key not matched")
         messagebox.showinfo(
-            "Incorrect Physical Key", "The physical key you entered is incorrect."
+            "Incorrect Password", "The password you entered is incorrect."
         )
+
+    
+    
 
 def open_payment_gateway_global(root, username):
     global payment_window, payment_status_label  # Declare payment_window and payment_status_label as global
@@ -199,19 +213,6 @@ def open_payment_gateway_global(root, username):
     # Handle window close event
     payment_window.protocol("WM_DELETE_WINDOW", root.quit)
 
-    def physicalKey_helper():
-        from findKey import compare_file_with_key
-        print(" **** Physical key selected")
-        result = compare_file_with_key(filename, saved_key)
-        print("physical key matched ? : " + str(result))
-        if result:
-            payment_successful()
-        else:
-            print("Physical key not matched")
-            messagebox.showinfo(
-                "Incorrect Physical Key", "The physical key you entered is incorrect."
-            )
-            
     # Payment status label
     payment_status_label = tk.Label(payment_window, text="", font=("Arial", 14))
     payment_status_label.pack(pady=10)
