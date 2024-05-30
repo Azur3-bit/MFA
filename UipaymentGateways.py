@@ -57,10 +57,6 @@ def show_fingerprint_popup():
         myfingerPrint.close()
     
 
-
-
-
-
 def fingerPrint_connection():
     print("**** Finger print option selected \n")
     show_fingerprint_popup()
@@ -103,13 +99,40 @@ def qr_code_helper(root, username):
             "Incorrect QR Code", "The QR code you entered is incorrect."
         )
 
+const_physical_key_PIN = CORRECT_UPI_PIN
+
+def physicalKey_helper():
+    from findKey import compare_file_with_key
+    print(" **** Physical key selected")
+
+    password = simpledialog.askstring("Password Authentication", "Enter your password:")
+    if password == CORRECT_UPI_PIN:
+        print("Physical pin entered:", password)
+        result = compare_file_with_key(filename, saved_key)
+        print("physical key matched ? : " + str(result))
+        if result:
+            print("payment Successful called\n")
+            payment_successful()
+        else:
+            print("Physical key not matched")
+            messagebox.showinfo(
+                "Incorrect Physical Key", "The physical key you entered is incorrect."
+            )
+
+    else:
+        messagebox.showinfo(
+            "Incorrect Password", "The password you entered is incorrect."
+        )
+
+    
+    
 
 def open_payment_gateway_global(root, username):
     global payment_window, payment_status_label  # Declare payment_window and payment_status_label as global
     root.withdraw()
     payment_window = tk.Toplevel(root)
     payment_window.title("Payment Gateway")
-    payment_window.geometry("400x300")
+    payment_window.geometry("450x500")
 
     # Transaction Processing heading
     heading_label = tk.Label(
@@ -132,19 +155,6 @@ def open_payment_gateway_global(root, username):
         font=("Arial", 10),
     )
     bank_info_label.pack()
-
-    def physicalKey_helper():
-        from findKey import compare_file_with_key
-        print(" **** Physical key selected")
-        result = compare_file_with_key(filename, saved_key)
-        print("physical key matched ? : " + str(result))
-        if result:
-            payment_successful()
-        else:
-            print("Physical key not matched")
-            messagebox.showinfo(
-                "Incorrect Physical Key", "The physical key you entered is incorrect."
-            )
 
     # Additional buttons
     upi_pin_button = tk.Button(
@@ -175,9 +185,29 @@ def open_payment_gateway_global(root, username):
         payment_window,
         text="Biometric",
         font=("Arial", 12),
-        command=lambda: fingerPrint_connection(),
+        command=lambda: fingerPrint_connection(root),
     )
     biometric_button.pack(pady=5)
+
+    # Payment status label
+    payment_status_label = tk.Label(payment_window, text="", font=("Arial", 14))
+    payment_status_label.pack(pady=10)
+
+    # Go Back button
+    def go_back():
+        payment_window.withdraw()
+        root.deiconify()
+
+    go_back_button = tk.Button(
+        payment_window,
+        text="Go Back",
+        font=("Arial", 12),
+        command=go_back
+    )
+    go_back_button.pack(pady=1)
+
+    # Handle window close event
+    payment_window.protocol("WM_DELETE_WINDOW", root.quit)
 
     # Payment status label
     payment_status_label = tk.Label(payment_window, text="", font=("Arial", 14))
