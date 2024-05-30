@@ -66,7 +66,7 @@ def authenticate_with_password(root):  # Add root as an argument
 
 def fingerPrint_connection(root):
 
-    
+
     print("**** [option selected] Finger print option selected \n")
     root = tk.Tk()
     root.withdraw()  # Hide the main window
@@ -95,6 +95,7 @@ def fingerPrint_connection(root):
             messagebox.showinfo(
                 "Fingerprint Matched", "FingerPrint matched, User Authenticated."
             )
+            scan_popup.withdraw()
             open_payment_gateway_global(root)
         else:
             print("[User-Notice] Incorrect Fingerprint", "The fingerprint is incorrect.\n")
