@@ -35,41 +35,37 @@ def show_fingerprint_popup():
     label = tk.Label(scan_popup, text="Please place your finger on the scanner.")
     label.pack(pady=20)
 
-    return root, scan_popup
+    myfingerPrint = FingerPrint()
+    
+    try:
+        root.mainloop()
+        myfingerPrint.open()
+        print("Hey there! Now place your finger on the scanner, please :)\n")
+        
+        if myfingerPrint.verify():
+            print("Authenticated user\n")
+            scan_popup.destroy()  # Close the pop-up window
+            payment_successful()
+        else:
+            print("There is always a second chance for everything\n")
+            messagebox.showinfo(
+                "Incorrect Fingerprint", "The fingerprint is incorrect."
+            )
+            scan_popup.destroy()  # Close the pop-up window
+    finally:
+        print("Closing connection with the fingerprint scanner\n")
+        myfingerPrint.close()
+    
+
+
+
+
 
 def fingerPrint_connection():
     print("**** Finger print option selected \n")
-
-    # Show the fingerprint scanning pop-up window
-    root, scan_popup = show_fingerprint_popup()
-
-    myfingerPrint = FingerPrint()
-
-    # Function to perform fingerprint verification
-    def verify_fingerprint():
-        try:
-            myfingerPrint.open()
-            print("Hey there! Now place your finger on the scanner, please :)\n")
-
-            if myfingerPrint.verify():
-                print("Authenticated user\n")
-                scan_popup.destroy()  # Close the pop-up window
-                payment_successful()
-            else:
-                print("There is always a second chance for everything\n")
-                messagebox.showinfo(
-                    "Incorrect Fingerprint", "The fingerprint is incorrect."
-                )
-                scan_popup.destroy()  # Close the pop-up window
-        finally:
-            print("Closing connection with the fingerprint scanner\n")
-            myfingerPrint.close()
-
-    # Schedule the fingerprint verification to run after the mainloop starts
-    root.after(100, verify_fingerprint)
-
-    root.mainloop()
-
+    show_fingerprint_popup()
+       
+    
 
 
 def payment_successful():
