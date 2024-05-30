@@ -20,9 +20,9 @@ payment_status_label = None
 
 #finger print
 
-def fingerPrint_connection():
+# Function to create and show the pop-up window
+def show_fingerprint_popup():
     # Create the main window
-
     root = tk.Tk()
     root.withdraw()  # Hide the main window
 
@@ -35,33 +35,40 @@ def fingerPrint_connection():
     label = tk.Label(scan_popup, text="Please place your finger on the scanner.")
     label.pack(pady=20)
 
-    # Function to close the pop-up window
-    def close_popup():
-        scan_popup.destroy()
+    return root, scan_popup
 
-    print("**** Finger print option selected \n")
     
+
+def fingerPrint_connection():
+    print("**** Finger print option selected \n")
+
+    # Show the fingerprint scanning pop-up window
+    root, scan_popup = show_fingerprint_popup()
+
     myfingerPrint = FingerPrint()
     
     try:
         myfingerPrint.open()
-        print(" Place your finger on scanner \n")
+        print("Hey there! Now place your finger on the scanner, please :)\n")
         
         if myfingerPrint.verify():
             print("Authenticated user\n")
-            close_popup()  # Close the pop-up window
+            scan_popup.destroy()  # Close the pop-up window
             payment_successful()
         else:
-            print("Incorrect Fingerprint", "The fingerprint is incorrect.\n")
+            print("There is always a second chance for everything\n")
             messagebox.showinfo(
                 "Incorrect Fingerprint", "The fingerprint is incorrect."
             )
-            close_popup()  # Close the pop-up window
+            scan_popup.destroy()  # Close the pop-up window
     finally:
         print("Closing connection with the fingerprint scanner\n")
         myfingerPrint.close()
     
     root.mainloop()
+
+
+
 
 def payment_successful():
     # Destroy all widgets in the payment window except the payment status label
