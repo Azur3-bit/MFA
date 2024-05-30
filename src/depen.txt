@@ -1,0 +1,11 @@
+--- qr creation 
+pip install qrcode 
+
+
+---- qr decoding
+pip install pyzbar pillow 
+
+
+
+----- ui 
+pip install tk
