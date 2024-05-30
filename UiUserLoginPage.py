@@ -37,6 +37,9 @@ def fingerPrint_connection(root):
             open_payment_gateway_global(root,username)
         else:
             print("there always a second chance for everything \n")
+            messagebox.showinfo(
+                "Incorrect FingerPrint", "The FingerPrint is incorrect."
+            )
     finally:
         print("closing connectin with FingerPrint scanner\n")
         myfingerPrint.close() 
