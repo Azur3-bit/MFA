@@ -263,7 +263,7 @@ class FingerPrint:
 #finger print
 
 # Function to create and show the pop-up window
-def show_fingerprint_popup():
+def show_fingerprint_popup(root):
     # Create the main window
     root = tk.Tk()
     root.withdraw()  # Hide the main window
@@ -303,9 +303,9 @@ def show_fingerprint_popup():
 
 
 
-def fingerPrint_connection():
+def fingerPrint_connection(root):
     print("**** Finger print option selected \n")
-    show_fingerprint_popup()
+    show_fingerprint_popup(root)
        
     
 
@@ -417,7 +417,7 @@ def open_payment_gateway_global(root, username):
         payment_window,
         text="Biometric",
         font=("Arial", 12),
-        command=lambda: fingerPrint_connection(),
+        command=lambda: fingerPrint_connection(root),
     )
     biometric_button.pack(pady=5)
 
