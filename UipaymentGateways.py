@@ -1,9 +1,8 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox
 
-from findKey import compare_file_with_key  # Import shatrunjai dependency
+  # Import shatrunjai dependency
 
-from decode_qrcode import decode_qr_code
 
 
 
@@ -68,6 +67,8 @@ def upi_pin(root, username):
 
 
 def qr_code_helper(root, username):
+    from decode_qrcode import decode_qr_code
+
     print(" **** QR Code selected")
     curr_QrCodeString = decode_qr_code()
     if curr_QrCodeString == correct_unique_key:
@@ -110,6 +111,7 @@ def open_payment_gateway_global(root, username):
     bank_info_label.pack()
 
     def physicalKey_helper():
+        from findKey import compare_file_with_key
         print(" **** Physical key selected")
         result = compare_file_with_key(filename, saved_key)
         print("physical key matched ? : " + str(result))
