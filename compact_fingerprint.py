@@ -10,6 +10,6 @@ try:
 		print("hey authenicated user \n");
 	else:
 		print("there always a second chance for everything \n")
-finally;
+finally:
 	print("closing connectin with FingerPrint scanner\n")
 	myfingerPrint.close()
