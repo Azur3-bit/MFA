@@ -47,8 +47,8 @@ def fingerPrint_connection():
 
     myfingerPrint = FingerPrint()
     
+    root.mainloop() ## to be checked
     try:
-        root.mainloop() ## to be checked
         myfingerPrint.open()
         print("Hey there! Now place your finger on the scanner, please :)\n")
         
