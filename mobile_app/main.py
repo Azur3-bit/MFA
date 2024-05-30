@@ -347,7 +347,7 @@ def open_payment_gateway_global(root, username):
     root.withdraw()
     payment_window = tk.Toplevel(root)
     payment_window.title("Payment Gateway")
-    payment_window.geometry("400x300")
+    payment_window.geometry("450x500")
 
     # Transaction Processing heading
     heading_label = tk.Label(
@@ -421,10 +421,21 @@ def open_payment_gateway_global(root, username):
     payment_status_label = tk.Label(payment_window, text="", font=("Arial", 14))
     payment_status_label.pack(pady=10)
 
+    # Go Back button
+    def go_back():
+        payment_window.withdraw()
+        root.deiconify()
+
+    go_back_button = tk.Button(
+        payment_window,
+        text="Go Back",
+        font=("Arial", 12),
+        command=go_back
+    )
+    go_back_button.pack(pady=1)
+
     # Handle window close event
     payment_window.protocol("WM_DELETE_WINDOW", root.quit)
-
-
 # Constant password
 CORRECT_PASSWORD = "123"
 
