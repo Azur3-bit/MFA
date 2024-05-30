@@ -20,7 +20,7 @@ def authenticate_with_password(root):  # Add root as an argument
         )
 
 
-def fingerPrint_connection(root):
+def fingerPrint_connection(root, username):
     print(" **** finger print option selected \n")
 
     from fingerprint import FingerPrint 
@@ -91,7 +91,7 @@ biometric_button = tk.Button(
     font=("Arial", 12, "bold"),
     bg="#007bff",
     fg="white",
-    command=lambda: fingerPrint_connection(root),
+    command=lambda: fingerPrint_connection(root,username),
 )
 biometric_button.grid(row=0, column=1, padx=5, pady=5)
 
