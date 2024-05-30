@@ -5,6 +5,9 @@ from findKey import compare_file_with_key  # Import shatrunjai dependency
 
 from decode_qrcode import decode_qr_code
 
+
+
+
 # Constants
 filename = "G:\\example.txt"  # Path to the text file on removable storage
 saved_key = "12345"
@@ -14,6 +17,29 @@ correct_unique_key = "WxaWJFJWXf2bZN5l"
 # Define payment_window and payment_status_label as global variables
 payment_window = None
 payment_status_label = None
+
+#finger print
+
+def fingerPrint_connection():
+    print(" **** finger print option selected \n")
+
+    from fingerprint import FingerPrint 
+    
+    
+    myfingerPrint = FingerPrint()
+    
+    try:
+        myfingerPrint.open()
+        print("hey there ! now place your finger on scanner please :)\n")
+        if myfingerPrint.verify():
+            print("hey authenicated user \n");
+            payment_successful()
+        else:
+            print("there always a second chance for everything \n")
+    finally:
+        print("closing connectin with FingerPrint scanner\n")
+        myfingerPrint.close() 
+
 
 
 def payment_successful():
@@ -25,6 +51,7 @@ def payment_successful():
 
 
 def upi_pin(root, username):
+    print(" **** upi_pin selected \n")
     password = simpledialog.askstring("Password Authentication", "Enter your password:")
     if password == CORRECT_UPI_PIN:
         print("Username:", username)
@@ -37,7 +64,7 @@ def upi_pin(root, username):
 
 
 def qr_code_helper(root, username):
-    print("QR Code selected")
+    print(" **** QR Code selected")
     curr_QrCodeString = decode_qr_code()
     if curr_QrCodeString == correct_unique_key:
         print("QR code matched")
@@ -79,7 +106,7 @@ def open_payment_gateway_global(root, username):
     bank_info_label.pack()
 
     def physicalKey_helper():
-        print(" +++ Physical key selected")
+        print(" **** Physical key selected")
         result = compare_file_with_key(filename, saved_key)
         print("physical key matched ? : " + str(result))
         if result:
@@ -119,7 +146,7 @@ def open_payment_gateway_global(root, username):
         payment_window,
         text="Biometric",
         font=("Arial", 12),
-        command=lambda: print("Biometric - fingerprint selected"),
+        command=lambda: fingerPrint_connection(),
     )
     biometric_button.pack(pady=5)
 
