@@ -368,19 +368,19 @@ def upi_pin(root, username):
         )
 
 
-def qr_code_helper(root, username):
-    from decode_qrcode import decode_qr_code
+# def qr_code_helper(root, username):
+#     from decode_qrcode import decode_qr_code
 
-    print(" **** QR Code selected")
-    curr_QrCodeString = decode_qr_code()
-    if curr_QrCodeString == correct_unique_key:
-        print("QR code matched")
-        payment_successful()
-    else:
-        print("QR code not matched")
-        messagebox.showinfo(
-            "Incorrect QR Code", "The QR code you entered is incorrect."
-        )
+#     print(" **** QR Code selected")
+#     curr_QrCodeString = decode_qr_code()
+#     if curr_QrCodeString == correct_unique_key:
+#         print("QR code matched")
+#         payment_successful()
+#     else:
+#         print("QR code not matched")
+#         messagebox.showinfo(
+#             "Incorrect QR Code", "The QR code you entered is incorrect."
+#         )
 
 
 def open_payment_gateway_global(root, username):
@@ -412,19 +412,49 @@ def open_payment_gateway_global(root, username):
     )
     bank_info_label.pack()
 
+    # def physicalKey_helper():
+    #     from findKey import compare_file_with_key
+    #     print(" **** Physical key selected")
+    #     result = compare_file_with_key(filename, saved_key)
+    #     print("physical key matched ? : " + str(result))
+    #     if result:
+    #         payment_successful()
+    #     else:
+    #         print("Physical key not matched")
+    #         messagebox.showinfo(
+    #             "Incorrect Physical Key", "The physical key you entered is incorrect."
+    #         )
+
+
+
+    const_physical_key_PIN = CORRECT_UPI_PIN
+
     def physicalKey_helper():
         from findKey import compare_file_with_key
-        print(" **** Physical key selected")
-        result = compare_file_with_key(filename, saved_key)
-        print("physical key matched ? : " + str(result))
-        if result:
-            payment_successful()
+        # from findKey import compare_file_with_key
+        print("[Dev-signal] **** Physical key selected")
+
+        password = simpledialog.askstring("Password Authentication", "Enter your password:")
+        if password == CORRECT_UPI_PIN:
+            print("[User-Notice] Physical pin entered:", password)
+            result = compare_file_with_key(filename, saved_key)
+            print("[Dev-signal] physical key matched ? : " + str(result))
+            if result:
+                print("[Dev-signal] payment Successful called\n")
+                payment_successful()
+            else:
+                print("[Dev-signal] Physical key not matched")
+                messagebox.showinfo(
+                    "Incorrect Physical Key", "The physical key you entered is incorrect."
+                )
+
         else:
-            print("Physical key not matched")
             messagebox.showinfo(
-                "Incorrect Physical Key", "The physical key you entered is incorrect."
+                "Incorrect Password", "The password you entered is incorrect."
             )
 
+    
+    
     # Additional buttons
     upi_pin_button = tk.Button(
         payment_window,
@@ -434,13 +464,13 @@ def open_payment_gateway_global(root, username):
     )
     upi_pin_button.pack(pady=5)
 
-    qr_code_button = tk.Button(
-        payment_window,
-        text="QR Code",
-        font=("Arial", 12),
-        command=lambda: qr_code_helper(root, username),  # Call qr_code_helper function
-    )
-    qr_code_button.pack(pady=5)
+    # qr_code_button = tk.Button(
+    #     payment_window,
+    #     text="QR Code",
+    #     font=("Arial", 12),
+    #     command=lambda: qr_code_helper(root, username),  # Call qr_code_helper function
+    # )
+    # qr_code_button.pack(pady=5)
 
     physical_key_button = tk.Button(
         payment_window,
