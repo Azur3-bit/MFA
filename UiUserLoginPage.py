@@ -102,12 +102,12 @@ def fingerPrint_connection(root):
 
 
     scan_fingerprint()
-    # Button to start scanning the fingerprint
-    # scan_button = tk.Button(scan_popup, text="Scan Fingerprint", command=scan_fingerprint)
-    # scan_button.pack(pady=10)
+    Button to start scanning the fingerprint
+    scan_button = tk.Button(scan_popup, text="Scan Fingerprint", command=scan_fingerprint)
+    scan_button.pack(pady=10)
 
-    # # Bind the return key to start scanning the fingerprint
-    # scan_popup.bind('<Return>', lambda event: scan_fingerprint())
+    # Bind the return key to start scanning the fingerprint
+    scan_popup.bind('<Return>', lambda event: scan_fingerprint())
        
 
 
