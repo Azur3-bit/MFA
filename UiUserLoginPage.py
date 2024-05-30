@@ -95,7 +95,7 @@ def fingerPrint_connection(root):
             messagebox.showinfo(
                 "Fingerprint Matched", "FingerPrint matched, User Authenticated."
             )
-            scan_popup.withdraw()
+            scan_popup.destroy()
             open_payment_gateway_global(root)
         else:
             print("[User-Notice] Incorrect Fingerprint", "The fingerprint is incorrect.\n")
