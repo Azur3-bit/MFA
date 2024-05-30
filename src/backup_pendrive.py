@@ -257,79 +257,9 @@ class FingerPrint:
 #         myFP.close()
 
 
-# adding payment info details 
 
 
-# bank_name = "default"
-# ifsc_code = "none"
-# amount = -100
 
-def beneficiary_detail_ui(root):
-    root.withdraw()
-    beneficiary = tk.Toplevel(root)
-    beneficiary.title("Add Beneficiary")
-    beneficiary.geometry("450x500")
-    beneficiary.configure(bg="lightblue")
-
-    # Title
-    title_label = tk.Label(
-        beneficiary, text="Enter Beneficiary Details", font=("Arial", 16, "bold"), bg="lightblue"
-    )
-    title_label.pack(pady=20)
-
-    # Frame for input fields
-    input_frame = tk.Frame(beneficiary, bg="lightblue")
-    input_frame.pack(pady=10)
-
-    # Label and Entry for Bank Name
-    bank_name_label = tk.Label(input_frame, text="Bank Name:", font=("Arial", 12), bg="lightblue")
-    bank_name_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
-    bank_name_entry = tk.Entry(input_frame, font=("Arial", 12))
-    bank_name_entry.grid(row=0, column=1, padx=10, pady=10)
-
-    # Label and Entry for IFSC Code
-    ifsc_label = tk.Label(input_frame, text="IFSC Code:", font=("Arial", 12), bg="lightblue")
-    ifsc_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
-    ifsc_entry = tk.Entry(input_frame, font=("Arial", 12))
-    ifsc_entry.grid(row=1, column=1, padx=10, pady=10)
-
-    # Label and Entry for Amount
-    amount_label = tk.Label(input_frame, text="Amount to Transfer:", font=("Arial", 12), bg="lightblue")
-    amount_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
-    amount_entry = tk.Entry(input_frame, font=("Arial", 12))
-    amount_entry.grid(row=2, column=1, padx=10, pady=10)
-
-    # Function to retrieve input data and proceed
-    def process_beneficiary_details():
-        global bank_name, ifsc_code, amount
-        bank_name = bank_name_entry.get()
-        ifsc_code = ifsc_entry.get()
-        amount = amount_entry.get()
-
-        # Here you can proceed with the entered details as required
-        # Call the open_payment_gateway_global function with provided arguments
-        beneficiary.destroy()
-        open_payment_gateway_global(root, username_entry.get())
-
-    # Button to submit beneficiary details
-    submit_button = tk.Button(
-        beneficiary, text="Submit", font=("Arial", 12, "bold"), bg="green", fg="white", command=process_beneficiary_details
-    )
-    submit_button.pack(pady=20)
-
-    # Function to go back to the main window
-    def go_back():
-        beneficiary.withdraw()
-        root.deiconify()
-
-    # Button to go back to the main window
-    go_back_button = tk.Button(
-        beneficiary, text="Go Back", font=("Arial", 12, "bold"), bg="red", fg="white", command=go_back
-    )
-    go_back_button.pack(pady=5)
-
-    # Handle window close event
-    beneficiary.protocol("WM_DELETE_WINDOW", root.quit)
 #finger print
 
 # Function to create and show the pop-up window
@@ -423,8 +353,6 @@ def payment_successful():
         if widget != payment_status_label:
             widget.destroy()
     payment_status_label.config(text="Payment Successful", fg="green")
-    
-
 
 
 def upi_pin(root, username):
@@ -453,37 +381,51 @@ def upi_pin(root, username):
 #         messagebox.showinfo(
 #             "Incorrect QR Code", "The QR code you entered is incorrect."
 #         )
+
+
 def open_payment_gateway_global(root, username):
     global payment_window, payment_status_label  # Declare payment_window and payment_status_label as global
     root.withdraw()
     payment_window = tk.Toplevel(root)
     payment_window.title("Payment Gateway")
     payment_window.geometry("450x500")
-    payment_window.configure(bg="lightblue")
 
     # Transaction Processing heading
     heading_label = tk.Label(
         payment_window,
         text="Transaction Processing ...",
         font=("Arial", 16, "bold"),
-        fg="black",
-        bg="lightblue"
+        fg="orange",
     )
     heading_label.pack(pady=(20, 10))
 
     # Payment gateway layout
     amount_label = tk.Label(
-        payment_window, text=f"Rs. {amount}", font=("Arial", 14, "bold"), fg="green", bg="lightblue"
+        payment_window, text="Rs. 500", font=("Arial", 14, "bold"), fg="green"
     )
     amount_label.pack()
 
     bank_info_label = tk.Label(
         payment_window,
-        text=f"Bank Name: {bank_name}\nIFSC Code: {ifsc_code}",
+        text="Bank Name: ICICI Bank\nIFSC Code: ICICII89520",
         font=("Arial", 10),
-        bg="lightblue"
     )
     bank_info_label.pack()
+
+    # def physicalKey_helper():
+    #     from findKey import compare_file_with_key
+    #     print(" **** Physical key selected")
+    #     result = compare_file_with_key(filename, saved_key)
+    #     print("physical key matched ? : " + str(result))
+    #     if result:
+    #         payment_successful()
+    #     else:
+    #         print("Physical key not matched")
+    #         messagebox.showinfo(
+    #             "Incorrect Physical Key", "The physical key you entered is incorrect."
+    #         )
+
+
 
     const_physical_key_PIN = CORRECT_UPI_PIN
 
@@ -522,6 +464,8 @@ def open_payment_gateway_global(root, username):
                 print("An error occurred:", e)
                 return False
 
+
+        # from findKey import compare_file_with_key
         print("[Dev-signal] **** Physical key selected")
 
         password = simpledialog.askstring("Password Authentication", "Enter your password:")
@@ -537,28 +481,35 @@ def open_payment_gateway_global(root, username):
                 messagebox.showinfo(
                     "Incorrect Physical Key", "The physical key you entered is incorrect."
                 )
+
         else:
             messagebox.showinfo(
                 "Incorrect Password", "The password you entered is incorrect."
             )
 
+    
+    
     # Additional buttons
     upi_pin_button = tk.Button(
         payment_window,
         text="UPI Pin",
-        font=("Arial", 12, "bold"),
-        bg="#007bff",
-        fg="white",
+        font=("Arial", 12),
         command=lambda: upi_pin(root, username),
     )
     upi_pin_button.pack(pady=5)
 
+    # qr_code_button = tk.Button(
+    #     payment_window,
+    #     text="QR Code",
+    #     font=("Arial", 12),
+    #     command=lambda: qr_code_helper(root, username),  # Call qr_code_helper function
+    # )
+    # qr_code_button.pack(pady=5)
+
     physical_key_button = tk.Button(
         payment_window,
         text="Physical Key",
-        font=("Arial", 12, "bold"),
-        bg="#007bff",
-        fg="white",
+        font=("Arial", 12),
         command=lambda: physicalKey_helper(),
     )
     physical_key_button.pack(pady=5)
@@ -566,15 +517,13 @@ def open_payment_gateway_global(root, username):
     biometric_button = tk.Button(
         payment_window,
         text="Biometric",
-        font=("Arial", 12, "bold"),
-        bg="#007bff",
-        fg="white",
+        font=("Arial", 12),
         command=lambda: fingerPrint_connection(root),
     )
     biometric_button.pack(pady=5)
 
     # Payment status label
-    payment_status_label = tk.Label(payment_window, text="", font=("Arial", 14), bg="lightblue")
+    payment_status_label = tk.Label(payment_window, text="", font=("Arial", 14))
     payment_status_label.pack(pady=10)
 
     # Go Back button
@@ -585,12 +534,10 @@ def open_payment_gateway_global(root, username):
     go_back_button = tk.Button(
         payment_window,
         text="Go Back",
-        font=("Arial", 12, "bold"),
-        bg="#dc3545",
-        fg="white",
+        font=("Arial", 12),
         command=go_back
     )
-    go_back_button.pack(pady=5)
+    go_back_button.pack(pady=1)
 
     # Handle window close event
     payment_window.protocol("WM_DELETE_WINDOW", root.quit)
@@ -605,11 +552,7 @@ def authenticate_with_password(root):  # Add root as an argument
         print("Username:", username)  # Log the username
         print("Password entered:", password)
         # Open payment gateway layout
-
-
-        # ---- changed for beneficiary 
-        # open_payment_gateway_global(root, username)  # Pass root as an argument
-        beneficiary_detail_ui(root)
+        open_payment_gateway_global(root, username)  # Pass root as an argument
     else:
         messagebox.showinfo(
             "Incorrect Password", "The password you entered is incorrect."
@@ -641,54 +584,58 @@ def authenticate_with_password(root):  # Add root as an argument
 
 
 
-if __name__ == "__main__":
-    root = tk.Tk()  # Define root here
-    root.title("User Authentication")
-    root.configure(bg="lightblue")
 
-    # Set the window size to a constant value
-    window_width = 400
-    window_height = 250
-    window_position_x = (root.winfo_screenwidth() - window_width) // 2
-    window_position_y = (root.winfo_screenheight() - window_height) // 2
-    root.geometry(f"{window_width}x{window_height}+{window_position_x}+{window_position_y}")
 
-    # Large heading
-    heading_label = tk.Label(root, text="SRM HACKATHON", font=("Arial", 24, "bold"), bg="lightblue")
-    heading_label.pack(pady=10)
+root = tk.Tk()  # Define root here
+root.title("User Authentication")
 
-    # Input username text box
-    username_frame = tk.Frame(root, bg="lightblue")
-    username_frame.pack(pady=10)
+# Set the window size to a constant value
+window_width = 400
+window_height = 250
+window_position_x = (root.winfo_screenwidth() - window_width) // 2
+window_position_y = (root.winfo_screenheight() - window_height) // 2
+root.geometry(f"{window_width}x{window_height}+{window_position_x}+{window_position_y}")
 
-    username_label = tk.Label(username_frame, text="Enter your username:", font=("Arial", 12), bg="lightblue")
-    username_label.pack(side=tk.LEFT)
+# Large heading
+heading_label = tk.Label(root, text="SRM HACKATHON", font=("Arial", 24, "bold"))
+heading_label.pack(pady=10)
 
-    username_entry = tk.Entry(username_frame, font=("Arial", 12))
-    username_entry.pack(side=tk.LEFT, padx=5)
+# Input username text box
+username_frame = tk.Frame(root)
+username_frame.pack()
 
-    # Frame to hold authentication buttons
-    auth_frame = tk.Frame(root, bg="lightblue")
-    auth_frame.pack(pady=10)
+username_label = tk.Label(
+    username_frame, text="Enter your username:", font=("Arial", 12)
+)
+username_label.pack(side=tk.LEFT)
 
-    password_button = tk.Button(
-        auth_frame,
-        text="Password",
-        font=("Arial", 12, "bold"),
-        bg="#28a745",
-        fg="white",
-        command=lambda: authenticate_with_password(root),
-    )
-    password_button.grid(row=0, column=0, padx=5, pady=5)
+username_entry = tk.Entry(username_frame)
+username_entry.pack(side=tk.LEFT, padx=5)
 
-    biometric_button = tk.Button(
-        auth_frame,
-        text="Biometric",
-        font=("Arial", 12, "bold"),
-        bg="#007bff",
-        fg="white",
-        command=lambda: fingerPrint_connection_userLogin(root),
-    )
-    biometric_button.grid(row=0, column=1, padx=5, pady=5)
+# Frame to hold authentication buttons
+auth_frame = tk.Frame(root)
+auth_frame.pack()
 
-    root.mainloop()
+password_button = tk.Button(
+    auth_frame,
+    text="Password",
+    font=("Arial", 12, "bold"),
+    bg="#28a745",
+    fg="white",
+    command=lambda: authenticate_with_password(root),
+)
+password_button.grid(row=0, column=0, padx=5, pady=5)
+
+biometric_button = tk.Button(
+    auth_frame,
+    text="Biometric",
+    font=("Arial", 12, "bold"),
+    bg="#007bff",
+    fg="white",
+    command=lambda: fingerPrint_connection_userLogin(root),
+)
+biometric_button.grid(row=0, column=1, padx=5, pady=5)
+
+root.mainloop()
+
+
