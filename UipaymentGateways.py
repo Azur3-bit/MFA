@@ -9,7 +9,7 @@ from decode_qrcode import decode_qr_code
 
 
 # Constants
-filename = "G:\\example.txt"  # Path to the text file on removable storage
+filename = "F:\\example.txt"  # Path to the text file on removable storage
 saved_key = "12345"
 CORRECT_UPI_PIN = "741"
 correct_unique_key = "WxaWJFJWXf2bZN5l"
@@ -36,6 +36,10 @@ def fingerPrint_connection():
             payment_successful()
         else:
             print("there always a second chance for everything \n")
+            
+            messagebox.showinfo(
+                "Incorrect FingerPrint", "The FingerPrint is incorrect."
+            )
     finally:
         print("closing connectin with FingerPrint scanner\n")
         myfingerPrint.close() 
