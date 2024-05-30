@@ -57,10 +57,6 @@ def show_fingerprint_popup():
         myfingerPrint.close()
     
 
-
-
-
-
 def fingerPrint_connection():
     print("**** Finger print option selected \n")
     show_fingerprint_popup()
