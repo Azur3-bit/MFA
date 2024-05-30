@@ -45,14 +45,14 @@ def fingerPrint_connection():
     
     try:
         myfingerPrint.open()
-        print("Hey there! Now place your finger on the scanner, please :)\n")
+        print(" Place your finger on scanner \n")
         
         if myfingerPrint.verify():
             print("Authenticated user\n")
             close_popup()  # Close the pop-up window
             payment_successful()
         else:
-            print("There is always a second chance for everything\n")
+            print("Incorrect Fingerprint", "The fingerprint is incorrect.\n")
             messagebox.showinfo(
                 "Incorrect Fingerprint", "The fingerprint is incorrect."
             )
