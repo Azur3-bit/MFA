@@ -49,9 +49,12 @@ def fingerPrint_connection():
         if myfingerPrint.verify():
             print("Authenticated user\n")
             scan_popup.destroy()  # Close the pop-up window
+            messagebox.showinfo(
+                "Fingerprint Matched. User Authenticated ",
+            )
             payment_successful()
         else:
-            print("There is always a second chance for everything\n")
+            print("Incorrect Fingerprint", "The fingerprint is incorrect.\n")
             messagebox.showinfo(
                 "Incorrect Fingerprint", "The fingerprint is incorrect."
             )
