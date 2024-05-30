@@ -215,15 +215,15 @@ class FingerPrint:
         self.identity.Value.AccountSid.Size = GetLengthSid(token_user.User.Sid)
 
 
-if __name__ == '__main__':
-    myFP = FingerPrint()
-    try:
-        myFP.open()
-        # myFP.identify()
-        print("Please touch the fingerprint sensor to authenticate")
-        if myFP.verify():
-            print("Authenticated")
-        else:
-            print("Please Try Again!")
-    finally:
-        myFP.close()
+# if __name__ == '__main__':
+#     myFP = FingerPrint()
+#     try:
+#         myFP.open()
+#         # myFP.identify()
+#         print("Please touch the fingerprint sensor to authenticate")
+#         if myFP.verify():
+#             print("Authenticated")
+#         else:
+#             print("Please Try Again!")
+#     finally:
+#         myFP.close()
