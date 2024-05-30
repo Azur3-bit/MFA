@@ -185,7 +185,7 @@ def open_payment_gateway_global(root, username):
         payment_window,
         text="Biometric",
         font=("Arial", 12),
-        command=lambda: fingerPrint_connection(root),
+        command=lambda: fingerPrint_connection(),
     )
     biometric_button.pack(pady=5)
 
