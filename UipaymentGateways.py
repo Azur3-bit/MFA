@@ -41,7 +41,7 @@ def fingerPrint_connection():
     
     try:
         print(" [Block notification] Entered try block\n")
-        root.mainloop()
+        # root.mainloop()
         print("[Finger print device] Finger print device connected \n")
         myfingerPrint.open()
         print("Hey there! Now place your finger on the scanner, please :)\n")
