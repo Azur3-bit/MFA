@@ -33,6 +33,7 @@ def fingerPrint_connection():
         print("hey there ! now place your finger on scanner please :)\n")
         if myfingerPrint.verify():
             print("hey authenicated user \n");
+            payment_successful()
         else:
             print("there always a second chance for everything \n")
     finally:
