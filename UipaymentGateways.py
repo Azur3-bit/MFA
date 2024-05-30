@@ -21,8 +21,10 @@ payment_status_label = None
 #finger print
 
 # Function to create and show the pop-up window
-def show_fingerprint_popup():
-    # Create the main window
+
+
+def fingerPrint_connection():
+    print("**** Finger print option selected \n")
     root = tk.Tk()
     root.withdraw()  # Hide the main window
 
@@ -38,6 +40,7 @@ def show_fingerprint_popup():
     myfingerPrint = FingerPrint()
     
     try:
+        print("entered try block\n")
         root.mainloop()
         myfingerPrint.open()
         print("Hey there! Now place your finger on the scanner, please :)\n")
@@ -55,11 +58,6 @@ def show_fingerprint_popup():
     finally:
         print("Closing connection with the fingerprint scanner\n")
         myfingerPrint.close()
-    
-
-def fingerPrint_connection():
-    print("**** Finger print option selected \n")
-    show_fingerprint_popup()
        
     
 
