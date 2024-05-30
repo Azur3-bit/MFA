@@ -44,29 +44,28 @@ def fingerPrint_connection():
         # root.mainloop()
         print("[Finger print device] Finger print device connected \n")
         myfingerPrint.open()
-        print("Hey there! Now place your finger on the scanner, please :)\n")
+        print("[User-Notice] Now place your finger on the scanner, please :)\n")
         
         if myfingerPrint.verify():
-            print("Authenticated user\n")
+            print("[User-Notice] Authenticated user\n")
             scan_popup.destroy()  # Close the pop-up window
             messagebox.showinfo(
                 "Fingerprint Matched", "FingerPrint matched, User Authenticated."
             )
-            payment_successful()
+            payment_successful(root)
         else:
-            print("Incorrect Fingerprint", "The fingerprint is incorrect.\n")
+            print("[User-Notice] Incorrect Fingerprint", "The fingerprint is incorrect.\n")
             messagebox.showinfo(
                 "Incorrect Fingerprint", "The fingerprint is incorrect."
             )
             scan_popup.destroy()  # Close the pop-up window
     finally:
-        print("Closing connection with the fingerprint scanner\n")
+        print("[User-Notice] Closing connection with the fingerprint scanner\n")
         myfingerPrint.close()
        
     
 
-
-def payment_successful():
+def payment_successful_done():
     # Destroy all widgets in the payment window except the payment status label
     for widget in payment_window.winfo_children():
         if widget != payment_status_label:
@@ -74,13 +73,57 @@ def payment_successful():
     payment_status_label.config(text="Payment Successful", fg="green")
 
 
+# Define the frames for the loading animation
+loading_frames = ["Loading.", "Loading..", "Loading..."]
+
+def payment_successful(root):
+
+    payment_window = tk.Toplevel(root)
+    payment_window.geometry("400x200")
+
+    payment_status_label = tk.Label(payment_window, text="Processing Payment...", font=("Arial", 14))
+    payment_status_label.pack(pady=20)
+
+    frame_index = 0
+
+    def update_loading_animation():
+        nonlocal frame_index
+        frame_index = (frame_index + 1) % len(loading_frames)
+        payment_status_label.config(text=loading_frames[frame_index])
+        payment_window.after(300, update_loading_animation)  # Update every 500 ms
+
+    def payment_successful_main():
+        # Stop the loading animation by stopping the after loop
+        payment_window.after_cancel(update_loading_animation)
+
+        # Destroy all widgets in the payment window except the payment status label
+        for widget in payment_window.winfo_children():
+            if widget != payment_status_label:
+                widget.destroy()
+
+        # Update the payment status label
+        payment_status_label.config(text="Payment Successful", fg="green")
+        payment_status_label.destroy()
+        payment_window.destroy()
+        return payment_successful_done()
+
+
+    update_loading_animation()
+    payment_window.after(900, payment_successful_main)  # Simulate payment process
+
+    # root.mainloop()
+
+# Call the function to create and display the payment window
+
+
+
 def upi_pin(root, username):
-    print(" **** upi_pin selected \n")
+    print("[Dev-signal]**** upi_pin selected \n")
     password = simpledialog.askstring("Password Authentication", "Enter your password:")
     if password == CORRECT_UPI_PIN:
-        print("Username:", username)
-        print("UPI pin entered:", password)
-        payment_successful()  # Call payment_successful function
+        print("[User-Notice] Username:", username)
+        print("[User-Notice] UPI pin entered:", password)
+        payment_successful(root)  # Call payment_successful rootfunction
     else:
         messagebox.showinfo(
             "Incorrect Password", "The password you entered is incorrect."
@@ -90,13 +133,13 @@ def upi_pin(root, username):
 def qr_code_helper(root, username):
     from decode_qrcode import decode_qr_code
 
-    print(" **** QR Code selected")
+    print("[Dev-signal] **** QR Code selected")
     curr_QrCodeString = decode_qr_code()
     if curr_QrCodeString == correct_unique_key:
-        print("QR code matched")
-        payment_successful()
+        print("[Dev-signal] QR code matched")
+        payment_successful(root)
     else:
-        print("QR code not matched")
+        print("[User-Notice] QR code not matched")
         messagebox.showinfo(
             "Incorrect QR Code", "The QR code you entered is incorrect."
         )
@@ -105,18 +148,18 @@ const_physical_key_PIN = CORRECT_UPI_PIN
 
 def physicalKey_helper():
     from findKey import compare_file_with_key
-    print(" **** Physical key selected")
+    print("[Dev-signal] **** Physical key selected")
 
     password = simpledialog.askstring("Password Authentication", "Enter your password:")
     if password == CORRECT_UPI_PIN:
-        print("Physical pin entered:", password)
+        print("[User-Notice] Physical pin entered:", password)
         result = compare_file_with_key(filename, saved_key)
-        print("physical key matched ? : " + str(result))
+        print("[Dev-signal] physical key matched ? : " + str(result))
         if result:
-            print("payment Successful called\n")
-            payment_successful()
+            print("[Dev-signal] payment Successful called\n")
+            payment_successful(root)
         else:
-            print("Physical key not matched")
+            print("[Dev-signal] Physical key not matched")
             messagebox.showinfo(
                 "Incorrect Physical Key", "The physical key you entered is incorrect."
             )
