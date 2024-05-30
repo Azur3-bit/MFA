@@ -172,7 +172,7 @@ def physicalKey_helper():
     
     
 
-def open_payment_gateway_global(root, username):
+def open_payment_gateway_global(root):
     global payment_window, payment_status_label  # Declare payment_window and payment_status_label as global
     root.withdraw()
     payment_window = tk.Toplevel(root)
