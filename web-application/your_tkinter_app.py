@@ -575,7 +575,7 @@ def open_payment_gateway_global(root, username):
             print("[Dev-signal] physical key matched ? : " + str(result))
             if result:
                 print("[Dev-signal] payment Successful called\n")
-                payment_successful()
+                payment_successful(root)
             else:
                 print("[Dev-signal] Physical key not matched")
                 messagebox.showinfo(
