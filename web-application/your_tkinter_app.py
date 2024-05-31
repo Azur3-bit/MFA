@@ -352,7 +352,7 @@ def show_fingerprint_popup(root):
             if myfingerPrint.verify():
                 print("Authenticated user\n")
                 scan_popup.destroy()  # Close the pop-up window
-                payment_successful()
+                payment_successful(root)
             else:
                 print("There is always a second chance for everything\n")
                 messagebox.showinfo(
