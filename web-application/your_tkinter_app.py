@@ -417,13 +417,57 @@ def show_fingerprint_popup_userLogin(root):
 
 
 
-def payment_successful():
+# def payment_successful():
+#     # Destroy all widgets in the payment window except the payment status label
+#     for widget in payment_window.winfo_children():
+#         if widget != payment_status_label:
+#             widget.destroy()
+#     payment_status_label.config(text="Payment Successful", fg="green")
+
+def payment_successful_done():
     # Destroy all widgets in the payment window except the payment status label
     for widget in payment_window.winfo_children():
         if widget != payment_status_label:
             widget.destroy()
     payment_status_label.config(text="Payment Successful", fg="green")
+
     
+loading_frames = ["Loading.", "Loading..", "Loading..."]
+
+def payment_successful(root):
+    print("[payment_successful] control reached function call\n")
+    payment_window = tk.Toplevel(root)
+    payment_window.geometry("400x200")
+
+    payment_status_label = tk.Label(payment_window, text="Processing Payment...", font=("Arial", 14))
+    payment_status_label.pack(pady=20)
+
+    frame_index = 0
+
+    def update_loading_animation():
+        nonlocal frame_index
+        frame_index = (frame_index + 1) % len(loading_frames)
+        payment_status_label.config(text=loading_frames[frame_index])
+        payment_window.after(300, update_loading_animation)  # Update every 500 ms
+
+    def payment_successful_main():
+        # Stop the loading animation by stopping the after loop
+        payment_window.after_cancel(update_loading_animation)
+
+        # Destroy all widgets in the payment window except the payment status label
+        for widget in payment_window.winfo_children():
+            if widget != payment_status_label:
+                widget.destroy()
+
+        # Update the payment status label
+        payment_status_label.config(text="Payment Successful", fg="green")
+        payment_status_label.destroy()
+        payment_window.destroy()
+        return payment_successful_done()
+
+
+    update_loading_animation()
+    payment_window.after(1000, payment_successful_main)  # Simulate payment process
 
 
 
@@ -433,7 +477,7 @@ def upi_pin(root, username):
     if password == CORRECT_UPI_PIN:
         print("Username:", username)
         print("Transaction pin entered:", password)
-        payment_successful()  # Call payment_successful function
+        payment_successful(root)  # Call payment_successful function
     else:
         messagebox.showinfo(
             "Incorrect Password", "The password you entered is incorrect."
