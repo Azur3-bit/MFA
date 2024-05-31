@@ -429,7 +429,7 @@ def payment_successful():
 
 def upi_pin(root, username):
     print(" **** upi_pin selected \n")
-    password = simpledialog.askstring("Password Authentication", "Enter your password:")
+    password = simpledialog.askstring("Password Authentication", "Enter your password:", show='*')
     if password == CORRECT_UPI_PIN:
         print("Username:", username)
         print("UPI pin entered:", password)
@@ -600,7 +600,7 @@ CORRECT_PASSWORD = "123"
 
 def authenticate_with_password(root):  # Add root as an argument
     username = username_entry.get()  # Retrieve username from the entry widget
-    password = simpledialog.askstring("Password Authentication", "Enter your password:")
+    password = simpledialog.askstring("Password Authentication", "Enter your password:", show='*')
     if password == CORRECT_PASSWORD:
         print("Username:", username)  # Log the username
         print("Password entered:", password)
