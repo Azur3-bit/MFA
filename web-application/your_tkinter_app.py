@@ -517,7 +517,7 @@ def open_payment_gateway_global(root, username):
 
     # Payment gateway layout
     amount_label = tk.Label(
-        payment_window, text=f"Rs. {amount}", font=("Arial", 14, "bold"), fg="green", bg="lightblue"
+        payment_window, text=f"Rs. 4676", font=("Arial", 14, "bold"), fg="green", bg="lightblue"
     )
     amount_label.pack()
 
