@@ -294,7 +294,7 @@ def beneficiary_detail_ui(root):
     ifsc_entry.grid(row=1, column=1, padx=10, pady=10)
 
     # Label and Entry for Amount
-    amount_label = tk.Label(input_frame, text="Amount to Transfer:", font=("Arial", 12), bg="lightblue")
+    amount_label = tk.Label(input_frame, text="CVV :", font=("Arial", 12), bg="lightblue")
     amount_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
     amount_entry = tk.Entry(input_frame, font=("Arial", 12))
     amount_entry.grid(row=2, column=1, padx=10, pady=10)
@@ -517,7 +517,7 @@ def open_payment_gateway_global(root, username):
 
     # Payment gateway layout
     amount_label = tk.Label(
-        payment_window, text=f"Rs. 4676", font=("Arial", 14, "bold"), fg="green", bg="lightblue"
+        payment_window, text=f"Rs. ₹4,676", font=("Arial", 14, "bold"), fg="green", bg="lightblue"
     )
     amount_label.pack()
 
