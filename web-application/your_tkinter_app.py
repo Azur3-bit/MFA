@@ -267,7 +267,7 @@ class FingerPrint:
 def beneficiary_detail_ui(root):
     root.withdraw()
     beneficiary = tk.Toplevel(root)
-    beneficiary.title("Account Details")
+    beneficiary.title("Bank Details")
     beneficiary.geometry("450x500")
     beneficiary.configure(bg="lightblue")
 

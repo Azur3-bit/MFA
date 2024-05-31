@@ -1,0 +1,28 @@
+<!-- html_base -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Run Python Application</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Run Python Tkinter Application</h1>
+    <button id="run-code">Run Code</button>
+    <pre id="result"></pre>
+
+    <script>
+        $(document).ready(function() {
+            $('#run-code').click(function() {
+                $.post('/run_code', function(data) {
+                    if (data.status === "success") {
+                        $('#result').text(data.message);
+                    } else {
+                        $('#result').text('Error: ' + data.message);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
