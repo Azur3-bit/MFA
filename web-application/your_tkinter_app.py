@@ -432,7 +432,7 @@ def upi_pin(root, username):
     password = simpledialog.askstring("Password Authentication", "Enter your password:", show='*')
     if password == CORRECT_UPI_PIN:
         print("Username:", username)
-        print("UPI pin entered:", password)
+        print("Transaction pin entered:", password)
         payment_successful()  # Call payment_successful function
     else:
         messagebox.showinfo(
@@ -524,7 +524,7 @@ def open_payment_gateway_global(root, username):
 
         print("[Dev-signal] **** Physical key selected")
 
-        password = simpledialog.askstring("Password Authentication", "Enter your password:")
+        password = simpledialog.askstring("Password Authentication", "Enter your password:", show='*')
         if password == CORRECT_UPI_PIN:
             print("[User-Notice] Physical pin entered:", password)
             result = compare_file_with_key(filename, saved_key)
@@ -545,7 +545,7 @@ def open_payment_gateway_global(root, username):
     # Additional buttons
     upi_pin_button = tk.Button(
         payment_window,
-        text="UPI Pin",
+        text="Transaction Pin",
         font=("Arial", 12, "bold"),
         bg="#007bff",
         fg="white",
